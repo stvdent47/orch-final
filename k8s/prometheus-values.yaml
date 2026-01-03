@@ -1,0 +1,14 @@
+alertmanager:
+  enabled: false
+server:
+  persistentVolume:
+    enabled: false
+  service:
+    type: NodePort
+    nodePort: 30008
+extraScrapeConfigs: |
+  - job_name: 'sentiment-app'
+    scrape_interval: 5s
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['sentiment-analyzer-internal.sentiment-app.svc.cluster.local:8080']
